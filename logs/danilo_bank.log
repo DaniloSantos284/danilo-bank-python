@@ -1,0 +1,59 @@
+2026-09-25T15:49:08.685Z INFO danilo_bank: movimentacao=depósito conta=1 valor=10.00 horario_utc=2026-09-25T15:49:08.685408Z
+2026-09-25T15:49:47.727Z INFO danilo_bank: sessao_iniciada conta=142026
+2026-09-25T15:50:00.543Z INFO danilo_bank: movimentacao=depósito conta=142026 valor=150.00 horario_utc=2026-09-25T15:50:00.543274Z
+2026-09-25T15:50:30.759Z INFO danilo_bank: movimentacao=saque conta=142026 valor=100.00 horario_utc=2026-09-25T15:50:30.758850Z
+2026-09-25T15:50:38.766Z INFO danilo_bank: movimentacao=depósito conta=142026 valor=85.75 horario_utc=2026-09-25T15:50:38.766718Z
+2026-09-25T15:50:49.751Z INFO danilo_bank: movimentacao=depósito conta=142026 valor=450.80 horario_utc=2026-09-25T15:50:49.751210Z
+2026-09-25T15:53:40.199Z INFO danilo_bank: sessao_iniciada conta=153449
+2026-09-25T15:53:44.399Z INFO danilo_bank: movimentacao=depósito conta=153449 valor=900.00 horario_utc=2026-09-25T15:53:44.399587Z
+2026-09-25T15:53:48.015Z INFO danilo_bank: movimentacao=depósito conta=153449 valor=100.00 horario_utc=2026-09-25T15:53:48.015256Z
+2026-09-25T15:53:52.017Z INFO danilo_bank: movimentacao=saque conta=153449 valor=200.00 horario_utc=2026-09-25T15:53:52.016795Z
+2026-09-25T15:59:50.991Z INFO danilo_bank: sessao_iniciada conta=174787
+2026-09-25T15:59:53.071Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:56.180Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:57.799Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:58.528Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:58.974Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:59.223Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:59.536Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:59.713Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T15:59:59.935Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T16:00:00.191Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T16:00:00.390Z WARNING danilo_bank: entrada_invalida conta=174787 erro=escolha_operacao() missing 1 required positional argument: 'user'
+2026-09-25T16:05:19.159Z INFO danilo_bank: sessao_iniciada conta=649284
+2026-09-25T16:05:21.111Z WARNING danilo_bank: entrada_invalida conta=649284 erro=escolha_operacao() missing 1 required positional argument: 'opcao_escolhida'
+2026-09-25T16:06:51.111Z INFO danilo_bank: sessao_iniciada conta=920807
+2026-09-25T16:06:54.430Z INFO danilo_bank: movimentacao=depósito conta=920807 valor=100.00 horario_utc=2026-09-25T16:06:54.430859Z
+2026-09-25T16:06:59.856Z INFO danilo_bank: movimentacao=depósito conta=920807 valor=300.00 horario_utc=2026-09-25T16:06:59.855880Z
+2026-09-25T16:07:04.663Z INFO danilo_bank: movimentacao=saque conta=920807 valor=100.00 horario_utc=2026-09-25T16:07:04.663297Z
+2026-09-25T16:16:52.591Z INFO danilo_bank: sessao_iniciada conta=647225
+2026-09-25T16:17:17.439Z INFO danilo_bank: sessao_iniciada conta=305894
+2026-09-25T16:17:26.408Z INFO danilo_bank: movimentacao=depósito conta=305894 valor=100.00 horario_utc=2026-09-25T16:17:26.408175Z
+2026-09-25T16:17:31.479Z INFO danilo_bank: movimentacao=saque conta=305894 valor=100.00 horario_utc=2026-09-25T16:17:31.478962Z
+2026-09-25T16:17:35.088Z INFO danilo_bank: movimentacao=depósito conta=305894 valor=9000.00 horario_utc=2026-09-25T16:17:35.088139Z
+2026-09-25T17:40:49.153Z INFO danilo_bank: sessao_iniciada conta=252656
+2026-09-25T17:44:28.000Z INFO danilo_bank: sessao_iniciada conta=747052
+2026-09-25T18:05:11.112Z INFO danilo_bank: sessao_iniciada conta=974882
+2026-09-25T18:05:15.192Z INFO danilo_bank: movimentacao=depósito conta=974882 valor=150.00 horario_utc=2026-09-25T18:05:15.192545Z
+2026-09-25T18:05:24.114Z INFO danilo_bank: movimentacao=saque conta=974882 valor=50.00 horario_utc=2026-09-25T18:05:24.114210Z
+2026-09-25T18:05:29.185Z INFO danilo_bank: movimentacao=depósito conta=974882 valor=300.00 horario_utc=2026-09-25T18:05:29.184961Z
+2026-09-25T18:18:21.713Z INFO danilo_bank: sessao_iniciada conta=527180
+2026-09-25T18:18:34.034Z INFO danilo_bank: movimentacao=depósito conta=527180 valor=100.00 horario_utc=2026-09-25T18:18:34.034160Z
+2026-09-25T18:18:40.545Z INFO danilo_bank: movimentacao=depósito conta=527180 valor=150.00 horario_utc=2026-09-25T18:18:40.545596Z
+2026-09-25T18:18:45.723Z INFO danilo_bank: movimentacao=saque conta=527180 valor=50.00 horario_utc=2026-09-25T18:18:45.723086Z
+2026-09-25T18:19:44.873Z INFO danilo_bank: perfil_atualizado campo=nome user=527180
+2026-09-25T18:33:02.217Z INFO danilo_bank: sessao_iniciada conta=136789
+2026-09-25T18:33:13.505Z INFO danilo_bank: movimentacao=depósito conta=136789 valor=100.00 horario_utc=2026-09-25T18:33:13.505426Z
+2026-09-25T18:33:16.841Z INFO danilo_bank: movimentacao=saque conta=136789 valor=100.00 horario_utc=2026-09-25T18:33:16.840947Z
+2026-09-25T18:42:19.033Z INFO danilo_bank: sessao_iniciada conta=970038
+2026-09-25T18:42:32.290Z INFO danilo_bank: perfil_atualizado campo=idade user=970038 nova_idade=22
+2026-09-25T18:52:48.332Z INFO danilo_bank: sessao_iniciada conta=512935
+2026-09-25T18:58:57.929Z INFO danilo_bank: sessao_iniciada conta=785472
+2026-09-25T18:59:07.634Z INFO danilo_bank: perfil_atualizado campo=idade user=785472 nova_idade=12
+2026-09-25T19:00:08.260Z INFO danilo_bank: sessao_iniciada conta=812351
+2026-09-25T19:04:35.169Z INFO danilo_bank: sessao_iniciada conta=933893
+2026-09-25T19:05:24.609Z INFO danilo_bank: sessao_iniciada conta=738398
+2026-09-25T19:06:09.049Z INFO danilo_bank: perfil_atualizado campo=idade user=738398 nova_idade=20
+2026-09-25T19:07:38.921Z INFO danilo_bank: sessao_iniciada conta=216549
+2026-09-25T19:43:46.498Z INFO danilo_bank: sessao_iniciada conta=728925
+2026-09-25T19:43:52.458Z INFO danilo_bank: movimentacao=depósito conta=728925 valor=100.00 horario_utc=2026-09-25T19:43:52.457793Z
