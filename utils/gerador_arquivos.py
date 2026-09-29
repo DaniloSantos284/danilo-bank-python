@@ -1,14 +1,31 @@
 import csv
 
-from models.Conta import exportar_extrato as extrato
+def gerar_extrato(conta):
+    try:
+        with open("extrato_danilo_bank.csv", "w", newline="", encoding="utf-8") as arquivo:
+            escritor = csv.writer(arquivo)
+            escritor.writerow(["===== EXTRATO DANILO BANK ====="])
 
-def gerar_extrato():
+            escritor.writerow(["tipo", "valor", "horario_utc"])
 
-    with open("extrato_danilo_bank.csv", "w", newline="", encoding="utf-8") as arquivo
-    escritor = csv.writer(arquivo)
 
-    escritor.writerow("\n===== EXTRATO DANILO BANK =====")
+            extrato = conta.exportar_extrato()
 
-    escritor.writelines(extrato)
+            for movimentacao in extrato:
+                horario_formatado = movimentacao["horario_utc"].strftime("%d/%m/%Y %H:%M:%S")
+                escritor.writerow([
+                    movimentacao["tipo"],
+                    movimentacao["valor"],
+                    horario_formatado
+                ])
 
-    escritor.writerow("====================================\n")
+            print("Extrato exportado com sucesso.")
+            escritor.writerow(["===================================="])
+    except PermissionError as err:
+        print(f"Você não tem as permissões necessárias. {err}")
+    except FileNotFoundError as err:
+        print(f"Arquivo não encontrado. {err}")
+    except csv.Error as err:
+        print(f"Erro ao gerar o arquivo CSV. {err}")
+    except Exception as err:
+        print(f"Erro ao gerar documento.{err}")
