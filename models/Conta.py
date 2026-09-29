@@ -89,3 +89,20 @@ class Conta:
         print(f"Saldo atual: R$ {self.saldo:.2f}")
 
         print("====================================\n")
+
+    def exportar_extrato(self):
+
+        if not self.extrato:
+            print("Não foram realizadas movimentações.")
+            return
+        else:
+            return (
+                for operacao in self.extrato:
+                    horario = self._formatar_horario_extrato(operacao["horario_utc"])
+                    print(
+                        f"{horario} | {operacao['tipo']}: "
+                        f"R$ {operacao['valor']:.2f}"
+                    )
+
+                print(f"Saldo atual: R$ {self.saldo:.2f}")
+            )

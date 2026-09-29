@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 def hello_world():
     print("\n")
     print("╔══════════════════════════════════════════════════════╗")
@@ -20,6 +22,7 @@ def exibir_menu():
     print("║   4. Informações da minha conta                      ║")
     print("║   5. Mudar Nome cadastrado                           ║")
     print("║   6. Mudar idade cadastrada                          ║")
+    print("║   7. exportar movimentação (CSV)                     ║")
     print("║   10. Sair do banco                                  ║")
     print("║                                                      ║")
     print("╚══════════════════════════════════════════════════════╝")
@@ -49,6 +52,13 @@ def escolha_operacao(conta, user, opcao_escolhida):
             print(f"Idade atual: {user.idade}")
             nova_idade = str(input("Digite a idade correta: "))
             user.mudar_idade(nova_idade)
+        case 7:
+            momento_inicial = datetime.now()
+            print(f"Seu arquivo será processado")
+            gerar_extrato()
+            momento_final = datetime.now()
+            duracao = momento_inicial - momento_final
+            print(f"Seu arquivo demorou: {duracao.total_seconds():.2} segundos para ficar pronto.")
         case 10:
             print("Até mais")
         case _:
