@@ -17,7 +17,7 @@ def gerar_extrato(conta):
                     movimentacao["tipo"],
                     movimentacao["valor"],
                     horario_formatado
-                ])
+                ]) 
 
             print("Extrato exportado com sucesso.")
             escritor.writerow(["===================================="])
