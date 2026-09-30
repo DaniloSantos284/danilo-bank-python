@@ -12,12 +12,12 @@ def gerar_extrato(conta):
             extrato = conta.exportar_extrato()
 
             for movimentacao in extrato:
-                horario_formatado = movimentacao["horario_utc"].strftime("%d/%m/%Y %H:%M:%S")
+                horario_formatado = movimentacao["horario_utc"].strftime("%d/%m/%Y %H:%M:%S UTC")
                 escritor.writerow([
                     movimentacao["tipo"],
                     movimentacao["valor"],
                     horario_formatado
-                ]) 
+                ])
 
             print("Extrato exportado com sucesso.")
             escritor.writerow(["===================================="])

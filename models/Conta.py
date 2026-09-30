@@ -30,7 +30,7 @@ class Conta:
         )
 
     @staticmethod
-    def _formatar_horario_extrato(horario_utc):
+    def _formatar_horario_extrato(horario_utc) -> str:
         try:
             horario_local = horario_utc.astimezone(ZoneInfo("America/Sao_Paulo"))
             return horario_local.strftime("%d/%m/%Y %H:%M:%S %Z")
@@ -90,5 +90,5 @@ class Conta:
 
         print("====================================\n")
 
-    def exportar_extrato(self):
-        return self.extrato
+    def exportar_extrato(self) -> list[dict]:
+        return self.extrato.copy()
