@@ -1,6 +1,8 @@
 from unittest.mock import Mock, patch
 from utils.boas_vindas import exibir_menu, escolha_operacao
 
+import pytest
+
 
 # O @patch intercepta a função nativa input do Python e força ela a retornar 2
 @patch("builtins.input", return_value="2")
@@ -24,8 +26,6 @@ def test_exibir_menu_retorna_inteiro_escolhido(mock_input, capsys):
 def test_exibir_menu_quebra_com_letra(mock_input):
     # Praticando a boa prática de testar quando o usuário insere itens errados.
     # Como o código faz int(input()), digitar 'a' deve gerar um ValueError.
-    import pytest
-
     with pytest.raises(ValueError):
         exibir_menu()
 

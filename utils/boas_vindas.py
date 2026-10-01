@@ -1,5 +1,6 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from utils.gerador_arquivos import gerar_extrato
+
 
 def hello_world():
     print("\n")
@@ -31,6 +32,7 @@ def exibir_menu():
     opcao_escolhida = int(input())
     return opcao_escolhida
 
+
 def escolha_operacao(conta, user, opcao_escolhida):
     match opcao_escolhida:
         case 1:
@@ -55,7 +57,7 @@ def escolha_operacao(conta, user, opcao_escolhida):
             user.mudar_idade(nova_idade)
         case 7:
             momento_inicial = datetime.now()
-            print(f"Seu arquivo será processado.")
+            print("Seu arquivo será processado.")
             gerar_extrato(conta)
             momento_final = datetime.now()
             duracao = momento_final - momento_inicial
