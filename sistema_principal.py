@@ -6,6 +6,7 @@ from utils.logging_config import obter_logger
 
 LOGGER = obter_logger()
 
+
 def executar_sistema():
     hello_world()
 

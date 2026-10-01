@@ -1,0 +1,14 @@
+[project]
+name = "danilo-bank-python"
+version = "0.1.0"
+description = "Sistema bancário de terminal simples para práticas de cursos."
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = ["tests"]
+pythonpath = ["src"]
