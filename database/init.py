@@ -8,10 +8,16 @@ cursor = conexao.cursor()
 
 
 def criar_tabela(conexao, cursor):
-    tabelas_unica = "CREATE TABLE clientes (id INTEGER PRIMARY KEY AUTOINCREMENT, nome VARCHAR(100), idade int(10))"
+    tabela_unica = """
+        CREATE TABLE IF NOT EXISTS clientes (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nome TEXT NOT NULL,
+            idade INTEGER NOT NULL CHECK (idade > 15 AND idade < 100)
+        )
+    """
 
     try:
-        cursor.execute(tabelas_unica)
+        cursor.execute(tabela_unica)
         conexao.commit()
         print("Criação da tabela: clientes foi executada com sucesso com os parâmetros: nome e idade")
     except Exception as err:
@@ -19,16 +25,34 @@ def criar_tabela(conexao, cursor):
         print(f"Não foi possível adicionar os itens: nome e idade na nova tabela: cliente. {err}")
 
 
-def add_coluna_tabelas_existentes(conexao, cursor):
-    sql = "ALTER TABLE clientes ADD idade INT;"
+def migrar_clientes(conexao):
+    if conexao.in_transaction:
+        raise RuntimeError("Execute esta migração sem outra transação aberta.")
 
     try:
-        cursor.execute(sql)
+        conexao.execute("BEGIN IMMEDIATE")
+
+        if conexao.execute("SELECT 1 FROM clientes LIMIT 1").fetchone():
+            raise ValueError("A tabela possui clientes; É preciso migrar os dados existentes.")
+
+        conexao.execute("""
+            CREATE TABLE clientes_nova (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                nome TEXT NOT NULL,
+                idade INTEGER NOT NULL CHECK(idade > 15 AND idade < 100)
+            )
+        """)
+
+        conexao.execute("DROP TABLE clientes")
+        conexao.execute("ALTER TABLE clientes_nova RENAME TO clientes")
+
         conexao.commit()
-        print("Alteração realizada com sucesso.")
+        print("migração realizada com sucesso.")
     except Exception as err:
         conexao.rollback()
-        print(f"Não foi possível alterar a tabela: clientes para inserir a nova coluna. {err}")
+        raise RuntimeError(
+            f"Não foi possível alterar a tabela clientes: {err}"
+        ) from err
 
 
 def inserir_registro(conexao, cursor, nome, idade):
