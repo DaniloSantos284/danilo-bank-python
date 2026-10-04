@@ -19,10 +19,14 @@ def criar_tabela(conexao, cursor):
     try:
         cursor.execute(tabela_unica)
         conexao.commit()
-        print("Criação da tabela: clientes foi executada com sucesso com os parâmetros: nome e idade")
+        print(
+            "Criação da tabela: clientes foi executada com sucesso com os parâmetros: nome e idade"
+        )
     except Exception as err:
         conexao.rollback()
-        print(f"Não foi possível adicionar os itens: nome e idade na nova tabela: cliente. {err}")
+        print(
+            f"Não foi possível adicionar os itens: nome e idade na nova tabela: cliente. {err}"
+        )
 
 
 def migrar_clientes(conexao):
@@ -33,7 +37,9 @@ def migrar_clientes(conexao):
         conexao.execute("BEGIN IMMEDIATE")
 
         if conexao.execute("SELECT 1 FROM clientes LIMIT 1").fetchone():
-            raise ValueError("A tabela possui clientes; É preciso migrar os dados existentes.")
+            raise ValueError(
+                "A tabela possui clientes; É preciso migrar os dados existentes."
+            )
 
         conexao.execute("""
             CREATE TABLE clientes_nova (
@@ -56,14 +62,32 @@ def migrar_clientes(conexao):
 
 
 def inserir_registro(conexao, cursor, nome, idade):
+    if not isinstance(idade, int) or isinstance(idade, bool) or not 15 < idade < 100:
+        raise ValueError(
+            "A idade deve ser um número inteiro maior que 15 e menor que 100."
+        )
+    if not isinstance(nome, str):
+        raise ValueError(
+            "Insira um nome correto para inserir no banco"
+        )
+    nome = nome.strip()
+    if not nome:
+        raise ValueError(
+            "Insira um nome correto para inserir no banco"
+        )
+
     data = (nome, idade)
 
     try:
         cursor.execute("INSERT INTO clientes (nome, idade) VALUES (?, ?);", data)
+        if cursor.rowcount != 1:
+            raise sqlite3.DatabaseError("A inserção não gravou exatamente um registro.")
         conexao.commit()
-    except Exception as err:
+    except sqlite3.Error as err:
         conexao.rollback()
-        print(f"Não foi possível inserir o nome: {nome} e idade: {idade} no banco de dados. {err}")
+        raise RuntimeError(
+            f"Não foi possível salvar o usuário no banco de dados: {err}"
+        ) from err
 
 
 def atualizar_registro(conexao, cursor, nome, idade, id):
@@ -72,9 +96,13 @@ def atualizar_registro(conexao, cursor, nome, idade, id):
     try:
         cursor.execute(sql, (nome, idade, id))
         conexao.commit()
-        print(f"Atualização realizada com sucesso, dados adicionados ao banco de dados: {nome}, {idade}")
+        print(
+            f"Atualização realizada com sucesso, dados adicionados ao banco de dados: {nome}, {idade}"
+        )
     except Exception as err:
-        print(f"Atualização não realizada no banco de dados, valide os dados e tente novamente: {err}")
+        print(
+            f"Atualização não realizada no banco de dados, valide os dados e tente novamente: {err}"
+        )
 
 
 def deletar_registro(conexao, cursor, id):

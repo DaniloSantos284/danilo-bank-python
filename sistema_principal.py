@@ -19,6 +19,9 @@ def executar_sistema():
             break
         except ValueError as erro:
             print(f"\nErro: {erro}\n")
+        except RuntimeError as erro:
+            print(f"\nNão foi possível criar o usuário: {erro}\n")
+            return
 
     conta = Conta(user)
     LOGGER.info("sessao_iniciada conta=%s", conta.identificador)
