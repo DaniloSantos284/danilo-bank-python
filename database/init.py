@@ -91,40 +91,109 @@ def inserir_registro(conexao, cursor, nome, idade):
 
 
 def atualizar_registro(conexao, cursor, nome, idade, id):
-    sql = "UPDATE clientes SET nome=?, idade=? WHERE id=?;"
+    if not isinstance(id, int) or id <= 0:
+        raise ValueError("ID inválido.")
+    if not isinstance(nome, str):
+        raise ValueError("Nome deve ser uma string válida.")
+    nome = nome.strip()
+    if not nome:
+        raise ValueError("Nome não pode ficar vazio.")
+    if not isinstance(idade, int) or not 15 < idade < 100:
+        raise ValueError("Idade inválida")
 
     try:
-        cursor.execute(sql, (nome, idade, id))
+        cursor.execute(
+            "UPDATE clientes SET nome = ?, idade = ? WHERE id = ?",
+            (nome, idade, id),
+        )
+
+        if cursor.rowcount != 1:
+            conexao.rollback()
+            raise ValueError("Nenhum registro foi atualizado, tente novamente.")
+
         conexao.commit()
-        print(
-            f"Atualização realizada com sucesso, dados adicionados ao banco de dados: {nome}, {idade}"
-        )
-    except Exception as err:
-        print(
-            f"Atualização não realizada no banco de dados, valide os dados e tente novamente: {err}"
-        )
+    except Exception:
+        conexao.rollback()
+        raise
 
 
 def deletar_registro(conexao, cursor, id):
-    usuario = "SELECT nome, idade FROM clientes Where id=?"
-    delete = "DELETE FROM clientes WHERE id=?"
+    if not isinstance(id, int) or isinstance(id, bool) or id <= 0:
+        raise ValueError("ID incorreto.")
+    if conexao.in_transaction:
+        raise RuntimeError(
+            "Não é possível excluir um cliente enquanto há outras transações abertas."
+        )
 
     try:
-        cursor.execute(usuario, (id,))
-        confirm = cursor.fetchone()
-        if confirm:
-            nome, idade = confirm
-        else:
-            return
+        cursor.execute(
+            "SELECT nome, idade FROM clientes WHERE id = ?",
+            (id,),
+        )
+        cliente = cursor.fetchone()
+    except sqlite3.Error as err:
+        raise RuntimeError(
+            f"Não foi possível consultar o cliente para exclusão: {err}"
+        ) from err
 
-        print(f"Tem certeza que deseja excluir os dados: {nome}, {idade}")
-        resp = input("1: Sim, 2: Não\n")
-        if resp.lower() in ("1", "sim"):
-            cursor.execute(delete, (id,))
-            conexao.commit()
-            print("Usuário deletado com sucesso")
-        else:
-            return
+    if cliente is None:
+        print("Cliente não encontrado.")
+        return False
 
-    except Exception as err:
-        print(f"Não foi possível apagar o registro: {usuario}. {err}")
+    nome, idade = cliente
+    print(f"Tem certeza que deseja excluir os dados: {nome}, {idade}")
+    resposta = input("1: Sim, 2: Não\n").strip().casefold()
+
+    if resposta not in ("1", "sim"):
+        print("Exclusão cancelada.")
+        return False
+
+    try:
+        cursor.execute(
+            """
+            DELETE FROM clientes
+            WHERE id = ? AND nome = ? AND idade = ?
+            """,
+            (id, nome, idade)
+        )
+
+        if cursor.rowcount != 1:
+            conexao.rollback()
+            print(
+                "O cliente foi alterado ou removido antes da confirmação. "
+                "Consulte-o novamente e tente outra vez."
+            )
+            return False
+
+        conexao.commit()
+    except sqlite3.Error as err:
+        conexao.rollback()
+        raise RuntimeError(
+            f"Não foi possível apagar o cliente: {err}"
+        ) from err
+
+    print("Usuário deletado com sucesso.")
+    return True
+
+
+def buscar_usuario(conexao, cursor, nome):
+    if not isinstance(nome, str):
+        raise ValueError("Nome deve ser uma string válida.")
+
+    nome = nome.strip()
+    if not nome:
+        raise ValueError("Nome não pode ficar vazio.")
+
+    try:
+        cursor.execute(
+            """
+            SELECT id, nome, idade
+            FROM clientes
+            WHERE nome = ? COLLATE NOCASE
+            ORDER BY nome COLLATE NOCASE, id
+            """,
+            (nome,),
+        )
+        return cursor.fetchall()
+    except sqlite3.Error as err:
+        raise RuntimeError(f"Não foi possível buscar o cliente: {err}") from err
