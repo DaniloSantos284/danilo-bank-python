@@ -16,17 +16,23 @@ def criar_tabela(conexao, cursor):
         )
     """
 
+    indice_nome = """
+    CREATE INDEX IF NOT EXISTS idx_clientes_nome_nocase
+    ON clientes(nome COLLATE NOCASE)
+    """
+
     try:
         cursor.execute(tabela_unica)
+        cursor.execute(indice_nome)
         conexao.commit()
         print(
-            "Criação da tabela: clientes foi executada com sucesso com os parâmetros: nome e idade"
+            "Banco inicializado com sucesso"
         )
-    except Exception as err:
+    except sqlite3.Error as err:
         conexao.rollback()
-        print(
-            f"Não foi possível adicionar os itens: nome e idade na nova tabela: cliente. {err}"
-        )
+        raise RuntimeError(
+            f"Não foi possível inicializar o banco: {err}"
+        ) from err
 
 
 def migrar_clientes(conexao):
@@ -51,6 +57,10 @@ def migrar_clientes(conexao):
 
         conexao.execute("DROP TABLE clientes")
         conexao.execute("ALTER TABLE clientes_nova RENAME TO clientes")
+        conexao.execute("""
+            CREATE INDEX IF NOT EXISTS idx_clientes_nome_nocase
+            ON clientes(nome COLLATE NOCASE)
+        """)
 
         conexao.commit()
         print("migração realizada com sucesso.")
